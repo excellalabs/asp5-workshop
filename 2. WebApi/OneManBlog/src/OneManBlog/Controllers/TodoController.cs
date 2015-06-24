@@ -16,12 +16,12 @@ namespace OneManBlog.Controllers
         };
         
         [HttpGet]
-        public IEnumerable<TodoItem> GetAllToDoItems()
+        public IEnumerable<TodoItem> GetAll()
         {
             return _items;
         }
 
-        [HttpGet("{id}", Name = "GetByTodoItemById")]
+        [HttpGet("{id}", Name = "GetById")]
         public IActionResult Get(int id)
         {
             var item = _items.FirstOrDefault(todoItem => todoItem.Id == id);
@@ -35,7 +35,7 @@ namespace OneManBlog.Controllers
         }
 
         [HttpPost]
-        public void CreateTodoItem([FromBody] TodoItem item)
+        public void Create([FromBody] TodoItem item)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace OneManBlog.Controllers
                 item.Id = 1 + _items.Max(x => (int?)x.Id) ?? 0;
                 _items.Add(item);
 
-                string url = Url.RouteUrl("GetByTodoItemById", new { id = item.Id },
+                string url = Url.RouteUrl("GetById", new { id = item.Id },
                     Request.Scheme, Request.Host.ToUriComponent());
 
                 Context.Response.StatusCode = 201;
@@ -55,7 +55,7 @@ namespace OneManBlog.Controllers
         }
 
         [HttpPost]
-        public void UpdateTodoItem([FromBody] TodoItem item)
+        public void Update([FromBody] TodoItem item)
         {
             var indexOfTodoItemToUpdate = _items.FindIndex(todoItem => todoItem.Id == item.Id);
 
@@ -69,7 +69,7 @@ namespace OneManBlog.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteTodoItem(int id)
+        public IActionResult Delete(int id)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
             if (item == null)
