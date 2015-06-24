@@ -15,7 +15,7 @@ namespace OneManBlog.Controllers
             new TodoItem { Id = 1, Title = "Do Laundry" }
         };
         
-        [HttpGet]
+        [HttpGet(Name = "GetAll")]
         public IEnumerable<TodoItem> GetAll()
         {
             return _items;
@@ -34,7 +34,7 @@ namespace OneManBlog.Controllers
             return new ObjectResult(item);
         }
 
-        [HttpPost]
+        [HttpPost(Name = "Create")]
         public void Create([FromBody] TodoItem item)
         {
             if (!ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace OneManBlog.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost(Name = "Update")]
         public void Update([FromBody] TodoItem item)
         {
             var indexOfTodoItemToUpdate = _items.FindIndex(todoItem => todoItem.Id == item.Id);
@@ -68,7 +68,7 @@ namespace OneManBlog.Controllers
             Context.Response.StatusCode = 400;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = "Delete")]
         public IActionResult Delete(int id)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
