@@ -14,14 +14,14 @@ namespace OneManBlog.Controllers
         {
             new TodoItem { Id = 1, Title = "Do Laundry" }
         };
-        
-        [HttpGet(Name = "GetAll")]
+
+        [HttpGet(Name = "getAll")]
         public IEnumerable<TodoItem> GetAll()
         {
             return _items;
         }
 
-        [HttpGet("{id}", Name = "GetById")]
+        [HttpGet("{id}", Name = "getById")]
         public IActionResult Get(int id)
         {
             var item = _items.FirstOrDefault(todoItem => todoItem.Id == id);
@@ -34,7 +34,7 @@ namespace OneManBlog.Controllers
             return new ObjectResult(item);
         }
 
-        [HttpPost(Name = "Create")]
+        [HttpPost(Name = "create")]
         public void Create([FromBody] TodoItem item)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace OneManBlog.Controllers
                 item.Id = 1 + _items.Max(x => (int?)x.Id) ?? 0;
                 _items.Add(item);
 
-                string url = Url.RouteUrl("GetById", new { id = item.Id },
+                string url = Url.RouteUrl("getById", new { id = item.Id },
                     Request.Scheme, Request.Host.ToUriComponent());
 
                 Context.Response.StatusCode = 201;
@@ -54,12 +54,12 @@ namespace OneManBlog.Controllers
             }
         }
 
-        [HttpPost(Name = "Update")]
+        [HttpPost(Name = "update")]
         public void Update([FromBody] TodoItem item)
         {
             var indexOfTodoItemToUpdate = _items.FindIndex(todoItem => todoItem.Id == item.Id);
 
-            if(indexOfTodoItemToUpdate != -1)
+            if (indexOfTodoItemToUpdate != -1)
             {
                 _items[indexOfTodoItemToUpdate] = item;
                 Context.Response.StatusCode = 200;
@@ -68,7 +68,7 @@ namespace OneManBlog.Controllers
             Context.Response.StatusCode = 400;
         }
 
-        [HttpDelete("{id}", Name = "Delete")]
+        [HttpDelete("{id}", Name = "delete")]
         public IActionResult Delete(int id)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
