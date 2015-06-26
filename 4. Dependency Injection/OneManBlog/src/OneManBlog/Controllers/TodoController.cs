@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNet.Mvc;
 using OneManBlog.Models;
+using OneManBlog.Services.Impl;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,21 +11,23 @@ namespace OneManBlog.Controllers
     [Route("api/[controller]")]
     public class TodoController : Controller
     {
-        static readonly List<TodoItem> _items = new List<TodoItem>()
+        private readonly ITodoListProvider todoListProvider;
+
+        public TodoController(ITodoListProvider todoListProvider)
         {
-            new TodoItem { Id = 1, Title = "Do Laundry" }
-        };
+            this.todoListProvider = todoListProvider;
+        }
 
         [HttpGet(Name = "getAll")]
         public IEnumerable<TodoItem> GetAll()
         {
-            return _items;
+            return this.todoListProvider.Items;
         }
 
         [HttpGet("{id}", Name = "getById")]
         public IActionResult Get(int id)
         {
-            var item = _items.FirstOrDefault(todoItem => todoItem.Id == id);
+            var item = this.todoListProvider.Get(id);
 
             if (item == null)
             {
@@ -37,46 +40,30 @@ namespace OneManBlog.Controllers
         [HttpPost(Name = "create")]
         public void Create([FromBody] TodoItem item)
         {
-            if (!ModelState.IsValid)
-            {
-                Context.Response.StatusCode = 400;
-            }
-            else
-            {
-                item.Id = 1 + _items.Max(x => (int?)x.Id) ?? 0;
-                _items.Add(item);
+            var newItem = this.todoListProvider.Create(item);
 
-                string url = Url.RouteUrl("getById", new { id = item.Id },
-                    Request.Scheme, Request.Host.ToUriComponent());
+            string url = Url.RouteUrl("getById", new { id = newItem.Id }, Request.Scheme, Request.Host.ToUriComponent());
 
-                Context.Response.StatusCode = 201;
-                Context.Response.Headers["Location"] = url;
-            }
+            Context.Response.StatusCode = 201;
+            Context.Response.Headers["Location"] = url;
         }
 
         [HttpPost(Name = "update")]
         public void Update([FromBody] TodoItem item)
         {
-            var indexOfTodoItemToUpdate = _items.FindIndex(todoItem => todoItem.Id == item.Id);
-
-            if (indexOfTodoItemToUpdate != -1)
-            {
-                _items[indexOfTodoItemToUpdate] = item;
-                Context.Response.StatusCode = 200;
-            }
-
-            Context.Response.StatusCode = 400;
+            var success = this.todoListProvider.Update(item);
+            Context.Response.StatusCode = success == true ? 200 : 400;
         }
 
         [HttpDelete("{id}", Name = "delete")]
         public IActionResult Delete(int id)
         {
-            var item = _items.FirstOrDefault(x => x.Id == id);
-            if (item == null)
+            var success = this.todoListProvider.Delete(id);
+            if (success == false)
             {
                 return HttpNotFound();
             }
-            _items.Remove(item);
+
             return new HttpStatusCodeResult(204);
         }
     }

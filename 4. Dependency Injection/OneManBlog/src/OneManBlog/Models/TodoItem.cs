@@ -4,6 +4,17 @@ namespace OneManBlog.Models
 {
     public class TodoItem
     {
+        public TodoItem()
+        {
+        }
+
+        public TodoItem(TodoItem item)
+        {
+            this.Id = item.Id;
+            this.Title = item.Title;
+            this.IsDone = item.IsDone;
+        }
+        
         public int Id { get; set; }
 
         [Required]
