@@ -1,5 +1,5 @@
-*\packages\*
-**\.vs\**
+*/packages/*
+**/.vs/**
 *.user
-**\bin**
-**\obj**
+**/bin**
+**/obj**
