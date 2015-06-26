@@ -18,6 +18,9 @@ namespace OneManBlog.Controllers
             this.todoListProvider = todoListProvider;
         }
 
+        //[FromServices]
+        //public ITodoListProvider todoListProvider { get; set; }
+
         [HttpGet(Name = "getAll")]
         public IEnumerable<TodoItem> GetAll()
         {
