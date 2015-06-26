@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-using OneManBlog.Models;
+using TodoList.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace OneManBlog.Controllers
+namespace TodoList.Controllers
 {
     [Route("api/[controller]")]
     public class TodoController : Controller
     {
-        static readonly IEnumerable<TodoItem> _items = new List<TodoItem>()
+        static ICollection<TodoItem> _items = new List<TodoItem>()
         {
             new TodoItem { Id = 1, Title = "Do Laundry" }
         };
-        
+
         [HttpGet(Name = "getAll")]
         public IEnumerable<TodoItem> GetAll()
         {
@@ -46,8 +46,7 @@ namespace OneManBlog.Controllers
                 item.Id = 1 + _items.Max(x => (int?)x.Id) ?? 0;
                 _items.Add(item);
 
-                string url = Url.RouteUrl("getById", new { id = item.Id },
-                    Request.Scheme, Request.Host.ToUriComponent());
+                string url = Url.RouteUrl("getById", new { id = item.Id }, Request.Scheme, Request.Host.ToUriComponent());
 
                 Context.Response.StatusCode = 201;
                 Context.Response.Headers["Location"] = url;
@@ -57,11 +56,13 @@ namespace OneManBlog.Controllers
         [HttpPost(Name = "update")]
         public void Update([FromBody] TodoItem item)
         {
-            var indexOfTodoItemToUpdate = _items.FindIndex(todoItem => todoItem.Id == item.Id);
+            var itemList = _items.ToList();
+            var indexOfTodoItemToUpdate = itemList.FindIndex(todoItem => todoItem.Id == item.Id);
 
-            if(indexOfTodoItemToUpdate != -1)
+            if (indexOfTodoItemToUpdate != -1)
             {
-                _items[indexOfTodoItemToUpdate] = item;
+                itemList[indexOfTodoItemToUpdate] = item;
+                _items = itemList;
                 Context.Response.StatusCode = 200;
             }
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
 
-namespace OneManBlog
+namespace TodoList
 {
     public class Startup
     {
