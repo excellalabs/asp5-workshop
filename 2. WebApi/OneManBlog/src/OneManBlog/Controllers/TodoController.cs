@@ -10,7 +10,7 @@ namespace OneManBlog.Controllers
     [Route("api/[controller]")]
     public class TodoController : Controller
     {
-        static readonly List<TodoItem> _items = new List<TodoItem>()
+        static readonly IEnumerable<TodoItem> _items = new List<TodoItem>()
         {
             new TodoItem { Id = 1, Title = "Do Laundry" }
         };
