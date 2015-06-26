@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OneManBlog.Models
+namespace TodoList.Models
 {
     public class TodoItem
     {

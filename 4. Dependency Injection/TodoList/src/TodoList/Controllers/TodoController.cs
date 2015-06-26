@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNet.Mvc;
-using OneManBlog.Models;
-using OneManBlog.Services.Impl;
+using TodoList.Models;
+using TodoList.Services.Impl;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace OneManBlog.Controllers
+namespace TodoList.Controllers
 {
     [Route("api/[controller]")]
     public class TodoController : Controller

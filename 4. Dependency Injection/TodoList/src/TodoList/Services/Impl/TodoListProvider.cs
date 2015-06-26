@@ -1,8 +1,8 @@
-﻿using OneManBlog.Models;
+﻿using TodoList.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OneManBlog.Services.Impl
+namespace TodoList.Services.Impl
 {
     public class TodoListProvider : ITodoListProvider
     {

@@ -3,10 +3,10 @@ using Autofac.Dnx;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
-using OneManBlog.Services.Impl;
+using TodoList.Services.Impl;
 using System;
 
-namespace OneManBlog
+namespace TodoList
 {
     public class Startup
     {
