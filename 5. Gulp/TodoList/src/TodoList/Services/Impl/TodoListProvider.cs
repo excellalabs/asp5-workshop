@@ -1,11 +1,19 @@
 ﻿using TodoList.Models;
 using System.Collections.Generic;
 using System.Linq;
+using TodoList.Dal;
 
 namespace TodoList.Services.Impl
 {
     public class TodoListProvider : ITodoListProvider
     {
+        private ITodoItemAppContext _dbContext;
+
+        public TodoListProvider(ITodoItemAppContext db)
+        {
+            _dbContext = db;
+        }
+
         ICollection<TodoItem> _items = new List<TodoItem>()
         {
             new TodoItem { Id = 1, Title = "Do Laundry" }
@@ -25,7 +33,7 @@ namespace TodoList.Services.Impl
 
         public TodoItem Get(int id)
         {
-            return this.Items.FirstOrDefault(todoItem => todoItem.Id == id);
+            return _dbContext.ToDoItems.FirstOrDefault(todoItem => todoItem.Id == id);
         }
 
         public TodoItem Create(TodoItem item)
