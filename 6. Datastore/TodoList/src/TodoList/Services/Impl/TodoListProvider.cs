@@ -61,7 +61,7 @@ namespace TodoList.Services.Impl
                 return false;
             }
 
-            this.Items.Remove(item);
+            _dbContext.Remove(item);
             return true;
         }
     }

@@ -8,5 +8,7 @@ namespace TodoList.Dal
         DbSet<TodoItem> ToDoItems { get; set; }
 
         void Save();
+
+        void Remove(TodoItem toDoItem);
     }
 }

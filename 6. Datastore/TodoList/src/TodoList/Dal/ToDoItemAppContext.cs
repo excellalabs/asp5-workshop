@@ -37,5 +37,10 @@ namespace TodoList.Dal
         {
             this.SaveChanges();
         }
+
+        public void Remove(TodoItem toDoItem)
+        {
+            this.Remove(toDoItem);
+        }
     }
 }
