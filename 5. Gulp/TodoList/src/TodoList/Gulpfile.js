@@ -19,7 +19,7 @@ gulp.task('default', function () {
 });
 
 gulp.task('deploy', function () {
-    gulp.start('jshint', 'compress');
+    gulp.start('jshint', 'clean', 'compress');
 });
 
 gulp.task('jshint', function () {
@@ -29,13 +29,13 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('compress', function () {
-    return gulp.src('./wwwroot/scripts/*.js')
+    return gulp.src('./scripts/*.js')
       .pipe(uglify())
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest('./wwwroot/scripts/'));
 });
 
 gulp.task('clean', function (cb) {
-    del('dist', cb);
+    del('./wwwroot/scripts/', cb);
 });
 
 gulp.task('watch', function () {
