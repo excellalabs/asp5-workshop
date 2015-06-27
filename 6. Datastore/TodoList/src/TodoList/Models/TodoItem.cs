@@ -21,7 +21,7 @@ namespace TodoList.Models
         public string Title { get; set; }
         
         public bool IsDone { get; set; }
-
+        
         public override string ToString()
         {
             return $"{this.Title}";

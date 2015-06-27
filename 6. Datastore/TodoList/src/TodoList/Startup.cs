@@ -7,7 +7,7 @@ using TodoList.Services.Impl;
 using System;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
-using OneManBlog.Dal;
+using TodoList.Dal;
 using Microsoft.Data.Entity;
 
 namespace TodoList
@@ -25,31 +25,36 @@ namespace TodoList
         }
 
         // Use built-in IoC Container
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    services.AddMvc();
-        //    services.AddTransient<ITodoListProvider, TodoListProvider>();
-
-        //    // services.AddSingleton<ITodoListProvider, TodoListProvider>();
-        //    // services.AddScoped<ITodoListProvider, TodoListProvider>();
-
-        //    // var specificListProvider = new TodoListProvider();
-        //    // services.AddInstance<ITodoListProvider>(specificListProvider);
-        //}
-
-        // Use another IoC Container
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<TodoItemAppContext>();
 
             services.AddMvc();
-            return this.ConfigureAutofac(services);
+            services.AddTransient<ITodoListProvider, TodoListProvider>();
 
-            //services.AddTransient<ITodoListProvider, TodoListProvider>();
-            //return services.BuildServiceProvider();
+            // services.AddSingleton<ITodoListProvider, TodoListProvider>();
+            // services.AddScoped<ITodoListProvider, TodoListProvider>();
+
+            // var specificListProvider = new TodoListProvider();
+            // services.AddInstance<ITodoListProvider>(specificListProvider);
         }
+
+        //// Use another IoC Container
+        //public IServiceProvider ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddEntityFramework()
+        //        .AddSqlServer()
+        //        .AddDbContext<TodoItemAppContext>();
+
+        //    services.AddMvc();
+
+        //    //return this.ConfigureAutofac(services);
+
+        //    services.AddTransient<ITodoListProvider, TodoListProvider>();
+        //    return services.BuildServiceProvider();
+        //}
 
         public IServiceProvider ConfigureAutofac(IServiceCollection services)
         {

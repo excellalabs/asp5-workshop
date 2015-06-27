@@ -3,7 +3,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Metadata.Builders;
 using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
-using OneManBlog.Dal;
+using TodoList.Dal;
 
 namespace TodoList.Migrations
 {
@@ -21,12 +21,15 @@ namespace TodoList.Migrations
                     {
                         b.Property<int>("Id")
                             .GenerateValueOnAdd()
-                            .Annotation("OriginalValueIndex", 0)
+                            .Annotation("OriginalValueIndex", -1)
+                            .Annotation("ShadowIndex", 0)
                             .Annotation("SqlServer:ValueGeneration", "Default");
                         b.Property<bool>("IsDone")
-                            .Annotation("OriginalValueIndex", 1);
+                            .Annotation("OriginalValueIndex", -1)
+                            .Annotation("ShadowIndex", 1);
                         b.Property<string>("Title")
-                            .Annotation("OriginalValueIndex", 2);
+                            .Annotation("OriginalValueIndex", 2)
+                            .Annotation("ShadowIndex", 2);
                         b.Key("Id");
                     });
                 

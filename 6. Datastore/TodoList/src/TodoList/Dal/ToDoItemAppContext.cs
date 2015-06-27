@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TodoList.Models;
 
-namespace OneManBlog.Dal
+namespace TodoList.Dal
 {
     public class TodoItemAppContext : DbContext, ITodoItemAppContext
     {
@@ -25,7 +25,7 @@ namespace OneManBlog.Dal
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=toDoItems;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False");
+            options.UseSqlServer(@"Server=(local);Database=ToDoItems;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -33,5 +33,9 @@ namespace OneManBlog.Dal
             base.OnModelCreating(builder);
         }
 
+        public void Save()
+        {
+            this.SaveChanges();
+        }
     }
 }

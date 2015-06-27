@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TodoList.Services.Impl;
 using Xunit;
 
-namespace OneManBlog.Tests
+namespace TodoList.Tests
 {
     public class TodoListControllerTests
     {

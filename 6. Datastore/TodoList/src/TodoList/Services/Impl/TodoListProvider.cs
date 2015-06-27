@@ -1,7 +1,7 @@
 ﻿using TodoList.Models;
 using System.Collections.Generic;
 using System.Linq;
-using OneManBlog.Dal;
+using TodoList.Dal;
 
 namespace TodoList.Services.Impl
 {
@@ -9,7 +9,7 @@ namespace TodoList.Services.Impl
     {
         private ITodoItemAppContext _dbContext;
 
-        public TodoListProvider(ITodoItemAppContext db)
+        public TodoListProvider(TodoItemAppContext db)
         {
             _dbContext = db;
         }
@@ -29,14 +29,13 @@ namespace TodoList.Services.Impl
 
         public TodoItem Get(int id)
         {
-            return this.Items.FirstOrDefault(todoItem => todoItem.Id == id);
+            return _dbContext.ToDoItems.FirstOrDefault(todoItem => todoItem.Id == id);
         }
 
         public TodoItem Create(TodoItem item)
         {
-            item.Id = 1 + this.Items.Max(x => (int?)x.Id) ?? 0;
-            this.Items.Add(item);
-
+            _dbContext.ToDoItems.Add(item);
+            _dbContext.Save();
             return item;
         }
 
