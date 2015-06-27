@@ -1,0 +1,61 @@
+﻿// EF7
+    "EntityFramework.SqlServer": "7.0.0-beta4",
+    "EntityFramework.Commands": "7.0.0-beta4",
+    "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4"
+  },
+
+  
+  "commands": {
+    "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+
+    // EF7
+    "ef": "EntityFramework.Commands"
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    public class TodoItemAppContext : DbContext
+    {
+        public DbSet<TodoItem> ToDoItems { get; set; }
+    }
+
+	
+	
+	
+	
+	
+	
+	
+	public IConfiguration Configuration { get; set; }
+
+        public Startup(IHostingEnvironment env)
+        {
+            // Setup configuration sources.
+            Configuration = new Configuration()
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
+        }
+		
+		....
+		
+		services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<TodoItemAppContext>();
+
+  
+  
+
+  
+  
+  
+  
+  
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;");
+        }

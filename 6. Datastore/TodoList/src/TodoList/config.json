@@ -1,7 +1,7 @@
 ﻿{
     "Data": {
         "DefaultConnection": { 
-            "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ToDoItensDatabase;Trusted_Connection=True;MultipleActiveResultSets=true"
+            "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ToDoItemsDatabase;Trusted_Connection=True;MultipleActiveResultSets=true"
         }
     },
     "EntityFramework": {

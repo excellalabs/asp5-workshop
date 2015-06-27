@@ -7,6 +7,8 @@ using TodoList.Services.Impl;
 using System;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
+using OneManBlog.Dal;
+using Microsoft.Data.Entity;
 
 namespace TodoList
 {
@@ -38,8 +40,10 @@ namespace TodoList
         // Use another IoC Container
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
-            
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<TodoItemAppContext>();
+
             services.AddMvc();
             return this.ConfigureAutofac(services);
 
