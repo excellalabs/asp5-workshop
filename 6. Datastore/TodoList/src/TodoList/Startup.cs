@@ -5,11 +5,23 @@ using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
 using TodoList.Services.Impl;
 using System;
+using Microsoft.Framework.ConfigurationModel;
+using Microsoft.AspNet.Hosting;
 
 namespace TodoList
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
+        public Startup(IHostingEnvironment env)
+        {
+            // Setup configuration sources.
+            Configuration = new Configuration()
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
+        }
+
         // Use built-in IoC Container
         //public void ConfigureServices(IServiceCollection services)
         //{
@@ -26,6 +38,8 @@ namespace TodoList
         // Use another IoC Container
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
+            
             services.AddMvc();
             return this.ConfigureAutofac(services);
 
