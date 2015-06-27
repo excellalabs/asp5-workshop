@@ -16,7 +16,8 @@
     "EntityFramework.SqlServer": "7.0.0-beta4",
     "EntityFramework.Commands": "7.0.0-beta4",
     "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-    "EntityFramework.SQLite": "7.0.0-beta1"
+    "EntityFramework.SQLite": "7.0.0-beta1",
+    "EntityFramework": "7.0.0-beta4"
   },
 
   "commands": {

@@ -8,11 +8,11 @@ using TodoList.Dal;
 namespace TodoList.Migrations
 {
     [ContextType(typeof(TodoItemAppContext))]
-    partial class InitialSchema
+    partial class Current
     {
         public override string Id
         {
-            get { return "20150627113339_InitialSchema"; }
+            get { return "20150627201216_Current"; }
         }
         
         public override string ProductVersion

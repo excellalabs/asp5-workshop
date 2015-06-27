@@ -16,7 +16,8 @@
       "EntityFramework.SqlServer >= 7.0.0-beta4",
       "EntityFramework.Commands >= 7.0.0-beta4",
       "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4",
-      "EntityFramework.SQLite >= 7.0.0-beta1"
+      "EntityFramework.SQLite >= 7.0.0-beta1",
+      "EntityFramework >= 7.0.0-beta4"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
@@ -135,6 +136,38 @@
         "lib/dnxcore50/Autofac.Dnx.dll",
         "lib/dnxcore50/Autofac.Dnx.xml",
         "lib/dnxcore50/Autofac.xml"
+      ]
+    },
+    "EntityFramework/7.0.0-beta4": {
+      "serviceable": false,
+      "sha": "KTplgz4PBKb33t8O0I5S8yBwkU+l9PTymzoTVav8/FGikck55Amf28EOpOZAqnkGIzCGYD5/k26P7AmVyYyTHw==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "EntityFramework.Commands": "7.0.0-beta4"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "EntityFramework.Commands": "7.0.0-beta4"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "caution.png",
+        "EntityFramework.7.0.0-beta4.nupkg",
+        "EntityFramework.7.0.0-beta4.nupkg.sha512",
+        "EntityFramework.nuspec",
+        "readme.html",
+        "yes.png",
+        "content/deleteme",
+        "tools/install.ps1"
       ]
     },
     "EntityFramework.Commands/7.0.0-beta4": {
